@@ -4,6 +4,7 @@ const Cast = require('../util/cast');
 const Clone = require('../util/clone');
 const Target = require('../engine/target');
 const StageLayering = require('../engine/stage-layering');
+const limits = require('../util/limits');
 
 /**
  * Rendered target: instance of a sprite (clone), or the stage.
@@ -269,7 +270,10 @@ class RenderedTarget extends Target {
         const oldX = this.x;
         const oldY = this.y;
         if (this.renderer) {
-            const position = this.renderer.getFencedPositionOfDrawable(this.drawableID, [x, y]);
+            let position = [x, y]
+            if (limits()) {
+                position = this.renderer.getFencedPositionOfDrawable(this.drawableID, [x, y]);
+            }
             this.x = position[0];
             this.y = position[1];
 
@@ -368,17 +372,21 @@ class RenderedTarget extends Target {
             return;
         }
         if (this.renderer) {
-            // Clamp to scales relative to costume and stage size.
-            // See original ScratchSprite.as:setSize.
-            const costumeSize = this.renderer.getCurrentSkinSize(this.drawableID);
-            const origW = costumeSize[0];
-            const origH = costumeSize[1];
-            const minScale = Math.min(1, Math.max(5 / origW, 5 / origH));
-            const maxScale = Math.min(
-                (1.5 * this.runtime.stageWidth) / origW,
-                (1.5 * this.runtime.stageHeight) / origH
-            );
-            this.size = MathUtil.clamp(size / 100, minScale, maxScale) * 100;
+            if (limits()) {
+                // Clamp to scales relative to costume and stage size.
+                // See original ScratchSprite.as:setSize.
+                const costumeSize = this.renderer.getCurrentSkinSize(this.drawableID);
+                const origW = costumeSize[0];
+                const origH = costumeSize[1];
+                const minScale = Math.min(1, Math.max(5 / origW, 5 / origH));
+                const maxScale = Math.min(
+                    (1.5 * this.runtime.stageWidth) / origW,
+                    (1.5 * this.runtime.stageHeight) / origH
+                );
+                this.size = MathUtil.clamp(size / 100, minScale, maxScale) * 100;
+            } else {
+                this.size = size
+            }
             const {direction, scale} = this._getRenderedDirectionAndScale();
             this.renderer.updateDrawableDirectionScale(this.drawableID, direction, scale);
             if (this.visible) {

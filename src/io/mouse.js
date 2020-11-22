@@ -1,4 +1,5 @@
 const MathUtil = require('../util/math-util');
+const limits = require('../util/limits');
 
 class Mouse {
     constructor (runtime) {
@@ -59,19 +60,27 @@ class Mouse {
     postData (data) {
         if (data.x) {
             this._clientX = data.x;
-            this._scratchX = Math.round(MathUtil.clamp(
-                this.runtime.stageWidth * ((data.x / data.canvasWidth) - 0.5),
-                -this.runtime.stageWidth / 2,
-                this.runtime.stageWidth / 2
-            ));
+            if (limits()) {
+                this._scratchX = Math.round(MathUtil.clamp(
+                    this.runtime.stageWidth * ((data.x / data.canvasWidth) - 0.5),
+                    -this.runtime.stageWidth / 2,
+                    this.runtime.stageWidth / 2
+                ));
+            } else {
+                this._scratchX = Math.round(this.runtime.stageWidth * ((data.x / data.canvasWidth) - 0.5))
+            }
         }
         if (data.y) {
             this._clientY = data.y;
-            this._scratchY = Math.round(MathUtil.clamp(
-                -this.runtime.stageHeight * ((data.y / data.canvasHeight) - 0.5),
-                -this.runtime.stageHeight,
-                this.runtime.stageHeight
-            ));
+            if (limits()) {
+                this._scratchY = Math.round(MathUtil.clamp(
+                    -this.runtime.stageHeight * ((data.y / data.canvasHeight) - 0.5),
+                    -this.runtime.stageHeight / 2,
+                    this.runtime.stageHeight / 2
+                ));
+            } else {
+                this._scratchY = Math.round(-this.runtime.stageHeight * ((data.y / data.canvasHeight) - 0.5));
+            }
         }
         if (typeof data.isDown !== 'undefined') {
             const previousDownState = this._isDown;

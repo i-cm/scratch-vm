@@ -1546,6 +1546,13 @@ class VirtualMachine extends EventEmitter {
     }
 
     /**
+     * @returns {boolean} Whether limits are imposed
+     */
+    get limits () {
+        return limits();
+    }
+
+    /**
      * Set whether protective limits should be imposed.
      * @param {boolean} yes Whether they should be imposed.
      */
