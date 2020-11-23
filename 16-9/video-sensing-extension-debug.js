@@ -82,12 +82,12 @@ var VirtualMachine =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 475);
+/******/ 	return __webpack_require__(__webpack_require__.s = 508);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 133:
+/***/ 135:
 /***/ (function(module, exports, __webpack_require__) {
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -104,7 +104,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
  *
  * Video motion sensing primitives.
  */
-var _require = __webpack_require__(80),
+var _require = __webpack_require__(81),
     motionVector = _require.motionVector,
     scratchAtan2 = _require.scratchAtan2;
 /**
@@ -396,8 +396,7 @@ function () {
             curr = this._curr; // The public APIs for Renderer#isTouching manage keeping the matrix and
         // silhouette up-to-date, which is needed for drawable#isTouching to work (used below)
 
-        drawable.updateMatrix();
-        if (drawable.skin) drawable.skin.updateSilhouette(); // Restrict the region the amount and direction are built from to
+        drawable.updateCPURenderAttributes(); // Restrict the region the amount and direction are built from to
         // the area of the current frame overlapped by the given drawable's
         // bounding box.
 
@@ -493,15 +492,42 @@ module.exports = VideoMotion;
 
 /***/ }),
 
-/***/ 475:
+/***/ 5:
+/***/ (function(module, exports) {
+
+var g;
+
+// This works in non-strict mode
+g = (function() {
+	return this;
+})();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || Function("return this")() || (1, eval)("this");
+} catch (e) {
+	// This works if the window reference is available
+	if (typeof window === "object") g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
+
+
+/***/ }),
+
+/***/ 508:
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(global) {module.exports = global["Scratch3VideoSensingDebug"] = __webpack_require__(476);
+/* WEBPACK VAR INJECTION */(function(global) {module.exports = global["Scratch3VideoSensingDebug"] = __webpack_require__(509);
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(5)))
 
 /***/ }),
 
-/***/ 476:
+/***/ 509:
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -510,8 +536,8 @@ module.exports = VideoMotion;
  * @file debug.js
  */
 
-const VideoMotion = __webpack_require__(133);
-const VideoMotionView = __webpack_require__(477);
+const VideoMotion = __webpack_require__(135);
+const VideoMotionView = __webpack_require__(510);
 
 module.exports = {
     VideoMotion,
@@ -521,7 +547,7 @@ module.exports = {
 
 /***/ }),
 
-/***/ 477:
+/***/ 510:
 /***/ (function(module, exports, __webpack_require__) {
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -530,7 +556,7 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-var _require = __webpack_require__(80),
+var _require = __webpack_require__(81),
     motionVector = _require.motionVector;
 
 var WINSIZE = 8;
@@ -1101,34 +1127,7 @@ module.exports = VideoMotionView;
 
 /***/ }),
 
-/***/ 5:
-/***/ (function(module, exports) {
-
-var g;
-
-// This works in non-strict mode
-g = (function() {
-	return this;
-})();
-
-try {
-	// This works if eval is allowed (see CSP)
-	g = g || Function("return this")() || (1, eval)("this");
-} catch (e) {
-	// This works if the window reference is available
-	if (typeof window === "object") g = window;
-}
-
-// g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
-
-module.exports = g;
-
-
-/***/ }),
-
-/***/ 80:
+/***/ 81:
 /***/ (function(module, exports) {
 
 /**
