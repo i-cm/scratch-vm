@@ -82,12 +82,12 @@ var VirtualMachine =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 508);
+/******/ 	return __webpack_require__(__webpack_require__.s = 520);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 135:
+/***/ 116:
 /***/ (function(module, exports, __webpack_require__) {
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -104,7 +104,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
  *
  * Video motion sensing primitives.
  */
-var _require = __webpack_require__(81),
+var _require = __webpack_require__(79),
     motionVector = _require.motionVector,
     scratchAtan2 = _require.scratchAtan2;
 /**
@@ -165,9 +165,7 @@ var LOCAL_THRESHOLD = THRESHOLD / 3;
  * @constructor
  */
 
-var VideoMotion =
-/*#__PURE__*/
-function () {
+var VideoMotion = /*#__PURE__*/function () {
   function VideoMotion(width, height) {
     _classCallCheck(this, VideoMotion);
 
@@ -504,7 +502,7 @@ g = (function() {
 
 try {
 	// This works if eval is allowed (see CSP)
-	g = g || Function("return this")() || (1, eval)("this");
+	g = g || new Function("return this")();
 } catch (e) {
 	// This works if the window reference is available
 	if (typeof window === "object") g = window;
@@ -519,15 +517,15 @@ module.exports = g;
 
 /***/ }),
 
-/***/ 508:
+/***/ 520:
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(global) {module.exports = global["Scratch3VideoSensingDebug"] = __webpack_require__(509);
+/* WEBPACK VAR INJECTION */(function(global) {module.exports = global["Scratch3VideoSensingDebug"] = __webpack_require__(521);
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(5)))
 
 /***/ }),
 
-/***/ 509:
+/***/ 521:
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -536,8 +534,8 @@ module.exports = g;
  * @file debug.js
  */
 
-const VideoMotion = __webpack_require__(135);
-const VideoMotionView = __webpack_require__(510);
+const VideoMotion = __webpack_require__(116);
+const VideoMotionView = __webpack_require__(522);
 
 module.exports = {
     VideoMotion,
@@ -547,7 +545,7 @@ module.exports = {
 
 /***/ }),
 
-/***/ 510:
+/***/ 522:
 /***/ (function(module, exports, __webpack_require__) {
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -556,7 +554,7 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-var _require = __webpack_require__(81),
+var _require = __webpack_require__(79),
     motionVector = _require.motionVector;
 
 var WINSIZE = 8;
@@ -708,9 +706,7 @@ var _videoMotionViewComponentsTmp = {
  * @constructor
  */
 
-var VideoMotionView =
-/*#__PURE__*/
-function () {
+var VideoMotionView = /*#__PURE__*/function () {
   function VideoMotionView(motion) {
     var output = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : OUTPUT.XYT;
 
@@ -756,7 +752,7 @@ function () {
 
   _createClass(VideoMotionView, [{
     key: "_eachAddress",
-
+    value:
     /**
      * Iterate each pixel address location and call a function with that address.
      * @param {number} xStart - start location on the x axis of the output pixel buffer
@@ -765,7 +761,7 @@ function () {
      * @param {number} yStop - location to stop at on the y axis
      * @param {function} fn - handle to call with each iterated address
      */
-    value: function _eachAddress(xStart, yStart, xStop, yStop, fn) {
+    function _eachAddress(xStart, yStart, xStop, yStop, fn) {
       for (var i = yStart; i < yStop; i++) {
         for (var j = xStart; j < xStop; j++) {
           var address = i * this.motion.width + j;
@@ -1127,7 +1123,7 @@ module.exports = VideoMotionView;
 
 /***/ }),
 
-/***/ 81:
+/***/ 79:
 /***/ (function(module, exports) {
 
 /**
