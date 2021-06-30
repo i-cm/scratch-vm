@@ -311,7 +311,7 @@ class Runtime extends EventEmitter {
 
         /**
          * Whether the project is in "compatibility mode" (30 TPS).
-         * @type {Boolean}
+         * @type {Boolean | number}
          */
         this.compatibilityMode = false;
 
@@ -605,7 +605,7 @@ class Runtime extends EventEmitter {
     static get PERIPHERAL_LIST_UPDATE () {
         return 'PERIPHERAL_LIST_UPDATE';
     }
-    
+
     /**
      * Event name for when the user picks a bluetooth device to connect to
      * via Companion Device Manager (CDM)
@@ -2131,7 +2131,8 @@ class Runtime extends EventEmitter {
 
     /**
      * Set whether we are in 30 TPS compatibility mode.
-     * @param {boolean} compatibilityModeOn True iff in compatibility mode.
+     * @param {boolean | number} compatibilityModeOn True iff in compatibility
+     * mode, or a specific FPS.
      */
     setCompatibilityMode (compatibilityModeOn) {
         this.compatibilityMode = compatibilityModeOn;
@@ -2566,7 +2567,9 @@ class Runtime extends EventEmitter {
 
         let interval = Runtime.THREAD_STEP_INTERVAL;
         if (this.compatibilityMode) {
-            interval = Runtime.THREAD_STEP_INTERVAL_COMPATIBILITY;
+            interval = typeof this.compatibilityMode === 'number'
+                ? 1000 / this.compatibilityMode
+                : Runtime.THREAD_STEP_INTERVAL_COMPATIBILITY;
         }
         this.currentStepTime = interval;
         this._steppingInterval = setInterval(() => {

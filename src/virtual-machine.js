@@ -200,10 +200,11 @@ class VirtualMachine extends EventEmitter {
     /**
      * Set whether the VM is in 2.0 "compatibility mode."
      * When true, ticks go at 2.0 speed (30 TPS).
-     * @param {boolean} compatibilityModeOn Whether compatibility mode is set.
+     * @param {boolean | number} compatibilityModeOn Whether compatibility mode
+     * is set, or a specific FPS.
      */
     setCompatibilityMode (compatibilityModeOn) {
-        this.runtime.setCompatibilityMode(!!compatibilityModeOn);
+        this.runtime.setCompatibilityMode(compatibilityModeOn);
     }
 
     /**
