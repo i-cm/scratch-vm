@@ -271,7 +271,7 @@ class RenderedTarget extends Target {
         const oldY = this.y;
         if (this.renderer) {
             let position = [x, y]
-            if (limits()) {
+            if (limits(true)) {
                 position = this.renderer.getFencedPositionOfDrawable(this.drawableID, [x, y]);
             }
             this.x = position[0];
@@ -372,7 +372,7 @@ class RenderedTarget extends Target {
             return;
         }
         if (this.renderer) {
-            if (limits()) {
+            if (limits(true)) {
                 // Clamp to scales relative to costume and stage size.
                 // See original ScratchSprite.as:setSize.
                 const costumeSize = this.renderer.getCurrentSkinSize(this.drawableID);

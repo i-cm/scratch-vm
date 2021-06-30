@@ -1552,9 +1552,13 @@ class VirtualMachine extends EventEmitter {
     /**
      * Set whether protective limits should be imposed.
      * @param {boolean} yes Whether they should be imposed.
+     * @param {?object} [options={}] More specific limit options
+     * @param {?boolean} [options.fencing] Whether sprite fencing should be
+     * enabled. If omitted, it'll inherit from `yes`.
      */
-    requireLimits (yes) {
-        limits(yes);
+    requireLimits (yes, { fencing = yes } = {}) {
+        limits(false, yes);
+        limits(true, fencing)
     }
 }
 
