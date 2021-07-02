@@ -2335,11 +2335,9 @@ var BitmapAdapter = function () {
      * @param {?function} makeImage HTML image constructor. Tests can provide this.
      * @param {?function} makeCanvas HTML canvas constructor. Tests can provide this.
      */
-    function BitmapAdapter() {
-        var stageWidth = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 640;
-        var stageHeight = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 360;
-        var makeImage = arguments[2];
-        var makeCanvas = arguments[3];
+    function BitmapAdapter(makeImage, makeCanvas) {
+        var stageWidth = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 640;
+        var stageHeight = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 360;
 
         _classCallCheck(this, BitmapAdapter);
 
@@ -2693,7 +2691,8 @@ var getFonts = __webpack_require__(/*! scratch-render-fonts */ "./node_modules/s
  * @return {string} The svg with any needed fonts inlined
  */
 var inlineSvgFonts = function inlineSvgFonts(svgString) {
-    var FONTS = getFonts();
+    // For some reason `getFonts` isn't a function but its contained object??
+    var FONTS = typeof getFonts === 'function' ? getFonts() : getFonts;
     // Make it clear that this function only operates on strings.
     // If we don't explicitly throw this here, the function silently fails.
     if (typeof svgString !== 'string') {
@@ -2718,7 +2717,7 @@ var inlineSvgFonts = function inlineSvgFonts(svgString) {
             for (var _iterator = fontsNeeded[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
                 var font = _step.value;
 
-                if (FONTS.hasOwnProperty(font)) {
+                if (Object.prototype.hasOwnProperty.call(FONTS, font)) {
                     str += '' + FONTS[font];
                 }
             }
