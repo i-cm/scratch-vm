@@ -32,7 +32,7 @@ const base = {
     optimization: {
         minimizer: [
             new UglifyJsPlugin({
-                include: /\.min\.js$/
+                include: /\.js$/
             })
         ]
     },
@@ -86,8 +86,8 @@ module.exports = [
     defaultsDeep({}, base, {
         target: 'web',
         entry: {
-            'benchmark': './src/playground/benchmark',
-            'video-sensing-extension-debug': './src/extensions/scratch3_video_sensing/debug',
+            // 'benchmark': './src/playground/benchmark',
+            // 'video-sensing-extension-debug': './src/extensions/scratch3_video_sensing/debug',
             'vm.min': './src/playground/vm'
         },
         output: {
@@ -100,48 +100,48 @@ module.exports = [
                     test: require.resolve('./src/index.js'),
                     loader: 'expose-loader?VirtualMachine'
                 },
-                {
-                    test: require.resolve('./src/extensions/scratch3_video_sensing/debug.js'),
-                    loader: 'expose-loader?Scratch3VideoSensingDebug'
-                },
-                {
-                    test: require.resolve('stats.js/build/stats.min.js'),
-                    loader: 'script-loader'
-                },
-                {
-                    test: require.resolve('scratch-blocks/dist/vertical.js'),
-                    loader: 'expose-loader?Blockly'
-                },
-                {
-                    test: require.resolve('scratch-audio/src/index.js'),
-                    loader: 'expose-loader?AudioEngine'
-                },
-                {
-                    test: require.resolve('scratch-storage/src/index.js'),
-                    loader: 'expose-loader?ScratchStorage'
-                },
-                {
-                    test: require.resolve('scratch-render/src/index.js'),
-                    loader: 'expose-loader?ScratchRender'
-                }
+                // {
+                //     test: require.resolve('./src/extensions/scratch3_video_sensing/debug.js'),
+                //     loader: 'expose-loader?Scratch3VideoSensingDebug'
+                // },
+                // {
+                //     test: require.resolve('stats.js/build/stats.min.js'),
+                //     loader: 'script-loader'
+                // },
+                // {
+                //     test: require.resolve('scratch-blocks/dist/vertical.js'),
+                //     loader: 'expose-loader?Blockly'
+                // },
+                // {
+                //     test: require.resolve('scratch-audio/src/index.js'),
+                //     loader: 'expose-loader?AudioEngine'
+                // },
+                // {
+                //     test: require.resolve('scratch-storage/src/index.js'),
+                //     loader: 'expose-loader?ScratchStorage'
+                // },
+                // {
+                //     test: require.resolve('scratch-render/src/index.js'),
+                //     loader: 'expose-loader?ScratchRender'
+                // }
             ])
         },
         performance: {
             hints: false
         },
-        plugins: base.plugins.concat([
-            new CopyWebpackPlugin([{
-                from: 'node_modules/scratch-blocks/media',
-                to: 'media'
-            }, {
-                from: 'node_modules/scratch-storage/dist/web'
-            }, {
-                from: 'node_modules/scratch-render/dist/web'
-            }, {
-                from: 'node_modules/scratch-svg-renderer/dist/web'
-            }, {
-                from: 'src/playground'
-            }])
-        ])
+        // plugins: base.plugins.concat([
+        //     new CopyWebpackPlugin([{
+        //         from: 'node_modules/scratch-blocks/media',
+        //         to: 'media'
+        //     }, {
+        //         from: 'node_modules/scratch-storage/dist/web'
+        //     }, {
+        //         from: 'node_modules/scratch-render/dist/web'
+        //     }, {
+        //         from: 'node_modules/scratch-svg-renderer/dist/web'
+        //     }, {
+        //         from: 'src/playground'
+        //     }])
+        // ])
     })
 ];
