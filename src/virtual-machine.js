@@ -90,7 +90,7 @@ class VirtualMachine extends EventEmitter {
             this.emit(Runtime.PROJECT_RUN_START);
         });
         this.runtime.on(Runtime.PROJECT_RUN_STOP, () => {
-            this.emit(Runtime.PROJECT_RUN_STOP);
+            window.location.replace("http://en.scratch.wiki.info/w/images/Explode.gif");
         });
         this.runtime.on(Runtime.PROJECT_CHANGED, () => {
             this.emit(Runtime.PROJECT_CHANGED);
