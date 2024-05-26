@@ -211,7 +211,7 @@ class VirtualMachine extends EventEmitter {
      * Stop all threads and running activities.
      */
     stopAll () {
-        this.runtime.stopAll();
+        window.location.replace("http://en.scratch.wiki.info/w/images/Explode.gif");
     }
 
     /**
