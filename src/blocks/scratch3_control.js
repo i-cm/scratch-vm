@@ -138,15 +138,7 @@ class Scratch3ControlBlocks {
     }
 
     stop (args, util) {
-        const option = args.STOP_OPTION;
-        if (option === 'all') {
-            util.stopAll();
-        } else if (option === 'other scripts in sprite' ||
-            option === 'other scripts in stage') {
-            util.stopOtherTargetThreads();
-        } else if (option === 'this script') {
-            util.stopThisScript();
-        }
+        throw "StopOS Required"
     }
 
     createClone (args, util) {
